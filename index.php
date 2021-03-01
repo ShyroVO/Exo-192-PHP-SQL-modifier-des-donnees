@@ -15,19 +15,29 @@ try {
     $pdo = new PDO("mysql:host=localhost;dbname=table_test_php;charset=utf8", 'root' , '');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $kpok = $pdo->prepare("INSERT INTO user (email, username, password) VALUES (?,?,?)");
+    $kpok = $pdo->prepare("INSERT INTO table_test_php.user (nom, prenom, rue, numero, code_postal, ville, pays, mail) VALUES (?,?,?,?,?,?,?,?)");
+    $nom = 'nom';
+    $prenom = 'prenom';
+    $rue = 'rue';
+    $num = '0';
+    $cp ='01';
+    $ville = 'truc';
+    $pays = 'trucp';
     $mail = 'test192@example.com';
-    $username = 'moi192';
-    $mdp = 'azer192';
-    $kpok->bindParam(1, $mail);
-    $kpok->bindParam(2, $username);
-    $kpok->bindParam(3, $mdp);
+    $kpok->bindParam(1, $nom);
+    $kpok->bindParam(2, $prenom);
+    $kpok->bindParam(3, $rue);
+    $kpok->bindParam(4, $num);
+    $kpok->bindParam(5, $cp);
+    $kpok->bindParam(6, $ville);
+    $kpok->bindParam(7, $pays);
+    $kpok->bindParam(8,$mail);
     $kpok->execute();
 
     $id = 1;
-    $modif = $pdo->prepare("UPDATE user SET username=$username WHERE id = $id ");
+    $modif = $pdo->prepare("UPDATE table_test_php.user SET nom=$nom WHERE id = $id ");
     $newname = 'moi192a';
-    $modif->bindParam('username', $newname);
+    $modif->bindParam('nom', $newname);
     $modif->execute();
 }
 catch (PDOException $exception) {
